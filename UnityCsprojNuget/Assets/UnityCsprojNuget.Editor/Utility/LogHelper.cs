@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCsprojNuget.Editor
+namespace UnityCsprojNuget.Editor.Utility
 {
     internal static class LogHelper
     {

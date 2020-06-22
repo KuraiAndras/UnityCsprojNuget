@@ -1,8 +1,9 @@
 ﻿using System.IO;
+using UnityCsprojNuget.Editor.Bll;
 using UnityEditor;
 using UnityEngine;
 
-namespace UnityCsprojNuget.Editor
+namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
@@ -26,6 +27,8 @@ namespace UnityCsprojNuget.Editor
             if (fileSet) _overwrite = GUILayout.Toggle(_overwrite, "Override files");
 
             if (fileSet && GUILayout.Button("Initialize")) OnInitializeClicked();
+
+            GuiLayoutHelper.DrawUiLine(Color.black);
         }
 
         private void OnInitializeClicked() => CreateProjectCreator().InitializeProject(_fileName, _overwrite);

@@ -1,4 +1,4 @@
-﻿namespace UnityCsprojNuget.Editor
+﻿namespace UnityCsprojNuget.Editor.Bll
 {
     internal interface IProjectCreator
     {

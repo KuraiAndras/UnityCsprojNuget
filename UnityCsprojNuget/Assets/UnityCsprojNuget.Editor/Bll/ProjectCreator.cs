@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using UnityCsprojNuget.Editor.Utility;
 
-namespace UnityCsprojNuget.Editor
+namespace UnityCsprojNuget.Editor.Bll
 {
     internal sealed class ProjectCreator : IProjectCreator
     {

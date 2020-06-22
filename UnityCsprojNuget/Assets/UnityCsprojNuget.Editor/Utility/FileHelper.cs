@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UnityCsprojNuget.Editor
+namespace UnityCsprojNuget.Editor.Utility
 {
     internal static class FileHelper
     {
