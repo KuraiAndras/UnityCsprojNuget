@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Linq;
 using UnityCsprojNuget.Editor.Bll;
 using UnityEditor;
 using UnityEngine;
@@ -7,30 +7,38 @@ namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
-        private string _fileName = string.Empty;
-        private bool _overwrite = false;
-
+        private (string asmdefPath, bool overwrite)[] _projects = new (string asmdefPath, bool overwrite)[0];
 
         [MenuItem("Unity Csproj / Open Window")]
         public static void OpenWindow() => GetWindow<NugetHelperWindow>();
 
         private static IProjectCreator CreateProjectCreator() => new ProjectCreator();
+        private static IProjectDiscoverer CreateProjectDiscoverer() => new ProjectDiscoverer();
+
+        private void Awake() => DiscoverProjects();
 
         private void OnGUI()
         {
-            GUILayout.Label(_fileName);
-
-            if (GUILayout.Button("Select you asmdef file")) _fileName = EditorUtility.OpenFilePanel("Select project", Directory.GetCurrentDirectory(), "asmdef");
-
-            var fileSet = File.Exists(_fileName);
-
-            if (fileSet) _overwrite = GUILayout.Toggle(_overwrite, "Override files");
-
-            if (fileSet && GUILayout.Button("Initialize")) OnInitializeClicked();
+            if (GUILayout.Button("Search for asmdef")) DiscoverProjects();
 
             GuiLayoutHelper.DrawUiLine(Color.black);
+
+            for (var i = 0; i < _projects.Length; i++)
+            {
+                var (asmdefPath, overwrite) = _projects[i];
+
+                GUILayout.Label(asmdefPath);
+
+                _projects[i].overwrite = GUILayout.Toggle(overwrite, "Override files");
+
+                if (GUILayout.Button("Initialize")) InitializeProject(asmdefPath, overwrite);
+
+                GuiLayoutHelper.DrawUiLine(Color.black);
+            }
         }
 
-        private void OnInitializeClicked() => CreateProjectCreator().InitializeProject(_fileName, _overwrite);
+        private void InitializeProject(string asmdefPath, bool overwrite) => CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
+
+        private void DiscoverProjects() => _projects = CreateProjectDiscoverer().FindAsmdefPaths().Select(p => (p, true)).ToArray();
     }
 }
