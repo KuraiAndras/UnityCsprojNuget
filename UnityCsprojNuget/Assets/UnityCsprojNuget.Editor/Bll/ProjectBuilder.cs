@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 
 namespace UnityCsprojNuget.Editor.Bll
 {
@@ -20,12 +21,20 @@ namespace UnityCsprojNuget.Editor.Bll
             }
 #pragma warning restore IDE0062 // Make local function 'static'
 
+            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath);
+
+            if (!File.Exists(csprojPath))
+            {
+                UnityEngine.Debug.LogError($"Project file does not exists: {csprojPath}");
+                return;
+            }
+
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "dotnet",
-                    Arguments = $"build {NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath)}",
+                    Arguments = $"build {csprojPath}",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
