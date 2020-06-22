@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
@@ -10,10 +10,10 @@
   </ItemGroup>
 
   <Target Name="Copy DLLs" AfterTargets="AfterBuild">
-    <Delete Files="$(OutDir)/$(MSBuildProjectName).dll" />
-    <Delete Files="$(OutDir)/$(MSBuildProjectName).pdb" />
+    <Delete Files="$(OutDir)/$(MSBuildProjectName).dll"/>
+    <Delete Files="$(OutDir)/$(MSBuildProjectName).pdb"/>
 
-    <RemoveDir Directories="$(MSBuildProjectDirectory)/../NugetDlls" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/../NugetDlls"/>
 
     <CreateItem Include="$(OutDir)/**/*">
       <Output ItemName="AllOutDirFiles" TaskParameter="Include" />
