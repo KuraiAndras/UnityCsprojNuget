@@ -2,9 +2,9 @@
 
 namespace UnityCsprojNuget.Editor.Utility
 {
-    internal static class LogHelper
+    public static class LogHelper
     {
-        internal static void LogDirectoryCreation(string directoryPath) => Debug.Log($"Created Directory {directoryPath}");
-        internal static void LogFileCreation(string filePath) => Debug.Log($"Created file {filePath}");
+        public static void LogDirectoryCreation(string directoryPath) => Debug.Log($"Created Directory {directoryPath}");
+        public static void LogFileCreation(string filePath) => Debug.Log($"Created file {filePath}");
     }
 }

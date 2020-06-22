@@ -3,7 +3,7 @@ using UnityCsprojNuget.Editor.Utility;
 
 namespace UnityCsprojNuget.Editor.Bll
 {
-    internal sealed class ProjectCreator : IProjectCreator
+    public sealed class ProjectCreator : IProjectCreator
     {
         public void InitializeProject(string asmFileName, bool overwrite)
         {

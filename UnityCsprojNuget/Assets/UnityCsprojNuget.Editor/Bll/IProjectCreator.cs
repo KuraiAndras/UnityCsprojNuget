@@ -1,6 +1,6 @@
 ﻿namespace UnityCsprojNuget.Editor.Bll
 {
-    internal interface IProjectCreator
+    public interface IProjectCreator
     {
         void InitializeProject(string asmFileName, bool overwrite);
     }
