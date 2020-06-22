@@ -6,9 +6,11 @@ namespace UnityCsprojNuget.Editor
     {
         internal static void EnsureDirectoryCreated(string path, bool overwrite = false)
         {
-            if (overwrite) Directory.Delete(path, true);
+            var directoryExists = Directory.Exists(path);
 
-            if (Directory.Exists(path)) return;
+            if (overwrite && directoryExists) Directory.Delete(path, true);
+
+            if (directoryExists) return;
 
             Directory.CreateDirectory(path);
             LogHelper.LogDirectoryCreation(path);

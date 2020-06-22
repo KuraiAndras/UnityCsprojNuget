@@ -18,6 +18,7 @@
       <Output ItemName="AllOutDirFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(AllOutDirFiles)" DestinationFolder="$(MSBuildProjectDirectory)/../NugetDlls" />
+    <Copy SourceFiles="Nuget/.gitignore" DestinationFolder="$(MSBuildProjectDirectory)/../NugetDlls" />
   </Target>
 
 </Project>

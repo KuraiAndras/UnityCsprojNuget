@@ -15,6 +15,7 @@ namespace UnityCsprojNuget.Editor
         private static void CreateFolderStructure(string baseDirectory, bool overwrite)
         {
             FileHelper.EnsureDirectoryCreated(Path.Combine(baseDirectory, RelativeDirectoryPaths.BaseFolder), overwrite);
+            FileHelper.EnsureDirectoryCreated(Path.Combine(baseDirectory, RelativeDirectoryPaths.BaseFolder, "Nuget"), overwrite);
         }
 
         private static void CreateDefaultFiles(string baseDirectory, string asmdefName, bool overwrite)
@@ -22,7 +23,8 @@ namespace UnityCsprojNuget.Editor
             var nugetBase = Path.Combine(baseDirectory, RelativeDirectoryPaths.BaseFolder);
 
             FileHelper.EnsureFileCreated(Path.Combine(nugetBase, asmdefName + ".Nuget.csproj"), FileResources.DefaultCsproj, overwrite);
-            FileHelper.EnsureFileCreated(Path.Combine(nugetBase, ".gitignore"), FileResources.DefaultGitIgnore, overwrite);
+            FileHelper.EnsureFileCreated(Path.Combine(nugetBase, ".gitignore"), FileResources.ProjectGitIgnore, overwrite);
+            FileHelper.EnsureFileCreated(Path.Combine(nugetBase, "Nuget", ".gitignore"), FileResources.DllGitIgnore, overwrite);
         }
     }
 }
