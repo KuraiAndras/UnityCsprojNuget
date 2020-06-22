@@ -30,11 +30,15 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 if (GUILayout.Button("Initialize")) InitializeProject(asmdefPath, overwrite);
 
+                if (GUILayout.Button("Build")) BuildProject(asmdefPath);
+
                 GuiLayoutHelper.DrawUiLine(Color.black);
             }
         }
 
-        private void InitializeProject(string asmdefPath, bool overwrite) => ProjectCreator.CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
+        private static void InitializeProject(string asmdefPath, bool overwrite) => ProjectCreator.CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
+
+        private static void BuildProject(string asmdefPath) => ProjectBuilder.CreateProjectBuilder().BuildProject(asmdefPath);
 
         private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().Select(p => (p, true)).ToArray();
     }
