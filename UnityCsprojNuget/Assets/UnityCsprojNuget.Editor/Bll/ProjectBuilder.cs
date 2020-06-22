@@ -23,7 +23,11 @@ namespace UnityCsprojNuget.Editor.Bll
 
             var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath);
 
-            if (!File.Exists(csprojPath)) throw new FileNotFoundException(csprojPath);
+            if (!File.Exists(csprojPath))
+            {
+                UnityEngine.Debug.LogError($"Project file does not exists: {csprojPath}");
+                return;
+            }
 
             var process = new Process
             {
