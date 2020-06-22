@@ -6,5 +6,7 @@ namespace UnityCsprojNuget.Editor.Bll
     {
         public string[] FindAsmdefPaths() =>
             Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets"), "*.asmdef", SearchOption.AllDirectories);
+
+        public static IProjectDiscoverer CreateProjectDiscoverer() => new ProjectDiscoverer();
     }
 }

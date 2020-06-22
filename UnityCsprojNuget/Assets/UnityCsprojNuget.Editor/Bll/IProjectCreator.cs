@@ -2,6 +2,6 @@
 {
     public interface IProjectCreator
     {
-        void InitializeProject(string asmFileName, bool overwrite);
+        void InitializeProject(string asmdefPath, bool overwrite);
     }
 }

@@ -12,9 +12,6 @@ namespace UnityCsprojNuget.Editor.Ui
         [MenuItem("Unity Csproj / Open Window")]
         public static void OpenWindow() => GetWindow<NugetHelperWindow>();
 
-        private static IProjectCreator CreateProjectCreator() => new ProjectCreator();
-        private static IProjectDiscoverer CreateProjectDiscoverer() => new ProjectDiscoverer();
-
         private void Awake() => DiscoverProjects();
 
         private void OnGUI()
@@ -33,12 +30,16 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 if (GUILayout.Button("Initialize")) InitializeProject(asmdefPath, overwrite);
 
+                if (GUILayout.Button("Build")) BuildProject(asmdefPath);
+
                 GuiLayoutHelper.DrawUiLine(Color.black);
             }
         }
 
-        private void InitializeProject(string asmdefPath, bool overwrite) => CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
+        private static void InitializeProject(string asmdefPath, bool overwrite) => ProjectCreator.CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
 
-        private void DiscoverProjects() => _projects = CreateProjectDiscoverer().FindAsmdefPaths().Select(p => (p, true)).ToArray();
+        private static void BuildProject(string asmdefPath) => ProjectBuilder.CreateProjectBuilder().BuildProject(asmdefPath);
+
+        private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().Select(p => (p, true)).ToArray();
     }
 }
