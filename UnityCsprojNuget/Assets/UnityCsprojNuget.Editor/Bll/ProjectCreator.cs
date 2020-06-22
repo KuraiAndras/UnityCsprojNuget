@@ -27,5 +27,7 @@ namespace UnityCsprojNuget.Editor.Bll
             FileHelper.EnsureFileCreated(Path.Combine(nugetBase, ".gitignore"), FileResources.ProjectGitIgnore, overwrite);
             FileHelper.EnsureFileCreated(Path.Combine(nugetBase, "Nuget", ".gitignore"), FileResources.DllGitIgnore, overwrite);
         }
+
+        public static IProjectCreator CreateProjectCreator() => new ProjectCreator();
     }
 }
