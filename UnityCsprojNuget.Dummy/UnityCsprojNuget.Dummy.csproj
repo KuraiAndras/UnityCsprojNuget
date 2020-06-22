@@ -4,8 +4,20 @@
     <TargetFramework>net471</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup >
+  <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" />
   </ItemGroup>
+
+  <Target Name="Copy DLLs" AfterTargets="AfterBuild">
+    <Delete Files="$(OutDir)/$(MSBuildProjectName).dll"/>
+    <Delete Files="$(OutDir)/$(MSBuildProjectName).pdb"/>
+
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/../NugetDlls"/>
+
+    <CreateItem Include="$(OutDir)/**/*">
+      <Output ItemName="AllOutDirFiles" TaskParameter="Include" />
+    </CreateItem>
+    <Copy SourceFiles="@(AllOutDirFiles)" DestinationFolder="$(MSBuildProjectDirectory)/../NugetDlls" />
+  </Target>
 
 </Project>
