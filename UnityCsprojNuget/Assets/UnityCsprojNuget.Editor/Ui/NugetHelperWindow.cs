@@ -34,6 +34,27 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 GuiLayoutHelper.DrawUiLine(Color.black);
             }
+
+            if (_projects.Length <= 1) return;
+
+            if (GUILayout.Button("Initialize All")) InitializeAll();
+            if (GUILayout.Button("Build All")) BuildAll();
+        }
+
+        private void BuildAll()
+        {
+            foreach (var (asmdefPath, _) in _projects)
+            {
+                BuildProject(asmdefPath);
+            }
+        }
+
+        private void InitializeAll()
+        {
+            foreach (var (asmdefPath, overwrite) in _projects)
+            {
+                InitializeProject(asmdefPath, overwrite);
+            }
         }
 
         private static void InitializeProject(string asmdefPath, bool overwrite) => ProjectCreator.CreateProjectCreator().InitializeProject(asmdefPath, overwrite);

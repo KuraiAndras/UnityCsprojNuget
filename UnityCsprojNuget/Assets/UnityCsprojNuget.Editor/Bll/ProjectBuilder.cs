@@ -25,7 +25,7 @@ namespace UnityCsprojNuget.Editor.Bll
 
             if (!File.Exists(csprojPath))
             {
-                UnityEngine.Debug.LogError($"Project file does not exists: {csprojPath}");
+                UnityEngine.Debug.LogWarning($"Skipping project file, because it does not exists: {csprojPath}");
                 return;
             }
 
