@@ -4,9 +4,8 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
 namespace UnityCsprojNuget.Editor
-
 {
-    public class NugetHelper : IPreprocessBuildWithReport
+    public sealed class NugetHelper : IPreprocessBuildWithReport
     {
         public int callbackOrder { get; }
 
