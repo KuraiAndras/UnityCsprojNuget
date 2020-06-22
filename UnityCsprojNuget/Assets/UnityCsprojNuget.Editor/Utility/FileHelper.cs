@@ -2,9 +2,9 @@
 
 namespace UnityCsprojNuget.Editor.Utility
 {
-    internal static class FileHelper
+    public static class FileHelper
     {
-        internal static void EnsureDirectoryCreated(string path, bool overwrite = false)
+        public static void EnsureDirectoryCreated(string path, bool overwrite = false)
         {
             var directoryExists = Directory.Exists(path);
 
@@ -16,7 +16,7 @@ namespace UnityCsprojNuget.Editor.Utility
             LogHelper.LogDirectoryCreation(path);
         }
 
-        internal static void EnsureFileCreated(string path, string defaultContent = null, bool overwrite = false)
+        public static void EnsureFileCreated(string path, string defaultContent = null, bool overwrite = false)
         {
             if (overwrite) File.Delete(path);
 

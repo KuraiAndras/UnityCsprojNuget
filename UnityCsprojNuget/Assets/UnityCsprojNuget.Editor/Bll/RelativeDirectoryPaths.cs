@@ -1,7 +1,7 @@
 ﻿namespace UnityCsprojNuget.Editor.Bll
 {
-    internal static class RelativeDirectoryPaths
+    public static class RelativeDirectoryPaths
     {
-        internal const string BaseFolder = ".nuget";
+        public const string BaseFolder = ".nuget";
     }
 }
