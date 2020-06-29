@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using UnityCsprojNuget.Editor.Bll;
+using UnityCsprojNuget.Editor.Bll.Entities;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
-        private (string asmdefPath, bool overwrite)[] _projects = new (string asmdefPath, bool overwrite)[0];
+        private ProjectDescriptor[] _projects = new ProjectDescriptor[0];
 
         [MenuItem("Unity Csproj / Open Window")]
         public static void OpenWindow() => GetWindow<NugetHelperWindow>();
@@ -20,17 +21,15 @@ namespace UnityCsprojNuget.Editor.Ui
 
             GuiLayoutHelper.DrawUiLine(Color.black);
 
-            for (var i = 0; i < _projects.Length; i++)
+            foreach (var project in _projects)
             {
-                var (asmdefPath, overwrite) = _projects[i];
+                GUILayout.Label(project.AsmdefPath);
 
-                GUILayout.Label(asmdefPath);
+                project.OverWrite = GUILayout.Toggle(project.OverWrite, "Overwrite files");
 
-                _projects[i].overwrite = GUILayout.Toggle(overwrite, "Override files");
+                if (GUILayout.Button("Initialize")) InitializeProject(project);
 
-                if (GUILayout.Button("Initialize")) InitializeProject(asmdefPath, overwrite);
-
-                if (GUILayout.Button("Build")) BuildProject(asmdefPath);
+                if (GUILayout.Button("Build")) BuildProject(project);
 
                 GuiLayoutHelper.DrawUiLine(Color.black);
             }
@@ -43,24 +42,24 @@ namespace UnityCsprojNuget.Editor.Ui
 
         private void BuildAll()
         {
-            foreach (var (asmdefPath, _) in _projects)
+            foreach (var project in _projects)
             {
-                BuildProject(asmdefPath);
+                BuildProject(project);
             }
         }
 
         private void InitializeAll()
         {
-            foreach (var (asmdefPath, overwrite) in _projects)
+            foreach (var project in _projects)
             {
-                InitializeProject(asmdefPath, overwrite);
+                InitializeProject(project);
             }
         }
 
-        private static void InitializeProject(string asmdefPath, bool overwrite) => ProjectCreator.CreateProjectCreator().InitializeProject(asmdefPath, overwrite);
+        private static void InitializeProject(ProjectDescriptor project) => ProjectCreator.CreateProjectCreator().InitializeProject(project);
 
-        private static void BuildProject(string asmdefPath) => ProjectBuilder.CreateProjectBuilder().BuildProject(asmdefPath);
+        private static void BuildProject(ProjectDescriptor project) => ProjectBuilder.CreateProjectBuilder().BuildProject(project);
 
-        private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().Select(p => (p, true)).ToArray();
+        private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace UnityCsprojNuget.Editor.Bll
+﻿using System.Collections.Generic;
+using UnityCsprojNuget.Editor.Bll.Entities;
+
+namespace UnityCsprojNuget.Editor.Bll
 {
     public interface IProjectDiscoverer
     {
-        string[] FindAsmdefPaths();
+        IEnumerable<ProjectDescriptor> FindAsmdefPaths();
     }
 }

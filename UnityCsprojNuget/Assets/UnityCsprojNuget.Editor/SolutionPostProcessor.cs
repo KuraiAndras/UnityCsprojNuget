@@ -30,9 +30,9 @@ namespace UnityCsprojNuget.Editor
 
                     if (line.Contains("# Visual Studio 15"))
                     {
-                        foreach (var asmdefPath in asmdefPaths)
+                        foreach (var project in asmdefPaths)
                         {
-                            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath);
+                            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath);
 
                             if (!File.Exists(csprojPath) || csprojPath.EndsWith(".sln")) continue;
 
