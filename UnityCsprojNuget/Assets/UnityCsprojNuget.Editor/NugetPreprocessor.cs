@@ -5,7 +5,7 @@ using UnityEditor.Build.Reporting;
 
 namespace UnityCsprojNuget.Editor
 {
-    public sealed class NugetHelper : IPreprocessBuildWithReport
+    public sealed class NugetPreprocessor : IPreprocessBuildWithReport
     {
         public int callbackOrder { get; }
 

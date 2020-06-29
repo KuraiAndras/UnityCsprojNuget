@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace UnityCsprojNuget.Editor
 {
-    public sealed class UnityProjectGenerator : AssetPostprocessor
+    public sealed class SolutionPostProcessor : AssetPostprocessor
     {
         // ReSharper disable once UnusedMember.Local
         // ReSharper disable once Unity.IncorrectMethodSignature
