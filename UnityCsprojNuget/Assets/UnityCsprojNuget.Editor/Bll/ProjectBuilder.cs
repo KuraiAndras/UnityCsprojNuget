@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using UnityCsprojNuget.Editor.Bll.Entities;
 
 namespace UnityCsprojNuget.Editor.Bll
 {
@@ -7,7 +8,7 @@ namespace UnityCsprojNuget.Editor.Bll
     {
         public static IProjectBuilder CreateProjectBuilder() => new ProjectBuilder();
 
-        public void BuildProject(string asmdefPath)
+        public void BuildProject(ProjectDescriptor project)
         {
 #pragma warning disable IDE0062 // Make local function 'static'
             void WriteProcessError(object sender, DataReceivedEventArgs e)
@@ -21,7 +22,7 @@ namespace UnityCsprojNuget.Editor.Bll
             }
 #pragma warning restore IDE0062 // Make local function 'static'
 
-            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath);
+            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath);
 
             if (!File.Exists(csprojPath))
             {
@@ -45,7 +46,7 @@ namespace UnityCsprojNuget.Editor.Bll
             var outputHandler = new DataReceivedEventHandler(WriteProcessOutput);
             var errorHandler = new DataReceivedEventHandler(WriteProcessError);
 
-            UnityEngine.Debug.Log($"Starting {asmdefPath} build");
+            UnityEngine.Debug.Log($"Starting {project.AsmdefPath} build");
 
             process.OutputDataReceived += outputHandler;
             process.ErrorDataReceived += errorHandler;
@@ -58,7 +59,7 @@ namespace UnityCsprojNuget.Editor.Bll
             process.OutputDataReceived -= outputHandler;
             process.ErrorDataReceived -= errorHandler;
 
-            UnityEngine.Debug.Log($"Finished {asmdefPath} build");
+            UnityEngine.Debug.Log($"Finished {project.AsmdefPath} build");
         }
     }
 }

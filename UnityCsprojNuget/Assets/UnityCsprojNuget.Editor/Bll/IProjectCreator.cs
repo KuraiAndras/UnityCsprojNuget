@@ -1,7 +1,9 @@
-﻿namespace UnityCsprojNuget.Editor.Bll
+﻿using UnityCsprojNuget.Editor.Bll.Entities;
+
+namespace UnityCsprojNuget.Editor.Bll
 {
     public interface IProjectCreator
     {
-        void InitializeProject(string asmdefPath, bool overwrite);
+        void InitializeProject(ProjectDescriptor project);
     }
 }

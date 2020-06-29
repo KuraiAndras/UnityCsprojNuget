@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace UnityCsprojNuget.Editor
 {
-    public sealed class UnityProjectGenerator : AssetPostprocessor
+    public sealed class SolutionPostProcessor : AssetPostprocessor
     {
         // ReSharper disable once UnusedMember.Local
         // ReSharper disable once Unity.IncorrectMethodSignature
@@ -30,9 +30,9 @@ namespace UnityCsprojNuget.Editor
 
                     if (line.Contains("# Visual Studio 15"))
                     {
-                        foreach (var asmdefPath in asmdefPaths)
+                        foreach (var project in asmdefPaths)
                         {
-                            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(asmdefPath);
+                            var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath);
 
                             if (!File.Exists(csprojPath) || csprojPath.EndsWith(".sln")) continue;
 

@@ -1,16 +1,17 @@
 ﻿using System.IO;
+using UnityCsprojNuget.Editor.Bll.Entities;
 using UnityCsprojNuget.Editor.Utility;
 
 namespace UnityCsprojNuget.Editor.Bll
 {
     public sealed class ProjectCreator : IProjectCreator
     {
-        public void InitializeProject(string asmdefPath, bool overwrite)
+        public void InitializeProject(ProjectDescriptor project)
         {
-            var baseDirectory = new FileInfo(asmdefPath).DirectoryName;
+            var baseDirectory = new FileInfo(project.AsmdefPath).DirectoryName;
 
-            CreateFolderStructure(baseDirectory, overwrite);
-            CreateDefaultFiles(baseDirectory, asmdefPath, overwrite);
+            CreateFolderStructure(baseDirectory, project.OverWrite);
+            CreateDefaultFiles(baseDirectory, project.AsmdefPath, project.OverWrite);
         }
 
         private static void CreateFolderStructure(string baseDirectory, bool overwrite)
