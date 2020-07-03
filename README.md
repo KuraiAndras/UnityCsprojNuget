@@ -15,6 +15,14 @@ ProjectRoot/Assets/MyAwesomeLibrary/MyAwesomeLibrary.asmdef
 
 This might change in the future, but right now it is a recommended pattern nevertheless.
 
+## Why this and not [NugetForUnity](https://github.com/GlitchEnzo/NuGetForUnity)
+
+Although NugetForUnity is a great project, it has several constraints:
+
+- Can't easily use specific nuget versions through nugget.org
+- It still has problems with downloading the required dlls [1](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [2](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [3](https://github.com/GlitchEnzo/NuGetForUnity/issues/325)
+- If you are working on other projects the generated csproj file can be used to directly reference them making it easier to work with projects not directly targeting Unity. Just add a reference to it.
+
 ## How does it work?
 
 The main idea is [this](https://kuraiandras.github.io/unity/2020/04/28/modern-unity/) blog post I wrote a while back. We are creating a .net framework project which we will use to generate the needed dlls, and then let Unity discover them. This project builds on that concepts, and automates the creation of the needed project file.
