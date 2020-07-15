@@ -20,7 +20,7 @@ This might change in the future, but right now it is a recommended pattern never
 Although NugetForUnity is a great project, it has several constraints:
 
 - Can't easily use specific nuget versions through nugget.org
-- It still has problems with downloading the required dlls [1](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [2](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [3](https://github.com/GlitchEnzo/NuGetForUnity/issues/325)
+- It still has problems with downloading the required dlls [1](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [2](https://github.com/GlitchEnzo/NuGetForUnity/issues/320) [3](https://github.com/GlitchEnzo/NuGetForUnity/issues/318)
 - If you are working on other projects the generated csproj file can be used to directly reference them making it easier to work with projects not directly targeting Unity. Just add a reference to it.
 
 ## How does it work?
