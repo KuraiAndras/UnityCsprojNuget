@@ -20,7 +20,7 @@ This might change in the future, but right now it is a recommended pattern never
 Although NugetForUnity is a great project, it has several constraints:
 
 - Can't easily use specific nuget versions through nugget.org
-- It still has problems with downloading the required dlls [1](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [2](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [3](https://github.com/GlitchEnzo/NuGetForUnity/issues/325)
+- It still has problems with downloading the required dlls [1](https://github.com/GlitchEnzo/NuGetForUnity/issues/325) [2](https://github.com/GlitchEnzo/NuGetForUnity/issues/320) [3](https://github.com/GlitchEnzo/NuGetForUnity/issues/318)
 - If you are working on other projects the generated csproj file can be used to directly reference them making it easier to work with projects not directly targeting Unity. Just add a reference to it.
 
 ## How does it work?
@@ -32,7 +32,7 @@ The main idea is [this](https://kuraiandras.github.io/unity/2020/04/28/modern-un
 1. Install the dotnet core sdk, and make sure it is available in your PATH
 2. Install the project through either [openupm](https://openupm.com/packages/com.unitycsprojnuget/) (this is recommended) or with the provided [unitypackage](https://github.com/KuraiAndras/UnityCsprojNuget/releases/latest). 
 3. Launch the csproj window as shown on the above image
-4. This window will enumerate through all of your asmdef files, and will let you create a csproj file for it's dependencies, and also place a folder named NugetDlls with a gitignore for the dlls and their meta files. The csproj is placed in a folder called .nuget which will be ignored by Unity. The project assumes that you are using a proper gitignore file when collaborating with others. If you do not want to use the provided gitignore files, then delete them after initialization.
+4. This window will enumerate through all of your asmdef files, and will let you create a csproj file for it's dependencies, and also place a folder named NugetDlls with a gitignore for the dlls and their meta files. The csproj is placed in a folder called .nuget which will be ignored by Unity. If you do not want to use the provided gitignore files, then delete them after initialization.
 5. Regenerate the Unity project files through Edit/Preferences/External Tools
 6. Launch Visual Studio and add nuget packages to the generated project file, or use the dotnet cli tools
 7. Build the generated project from either Visual Studio, the dotnet cli or through the provided Editor UI
