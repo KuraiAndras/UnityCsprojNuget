@@ -24,7 +24,7 @@ namespace UnityCsprojNuget.Editor.Application
 
             try
             {
-                using (var file = File.Open(NugetOptions.CreateDefaultPath(), FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                using (var file = new StreamReader(NugetOptions.CreateDefaultPath()))
                 {
                     return (NugetOptions)serializer.Deserialize(file);
                 }

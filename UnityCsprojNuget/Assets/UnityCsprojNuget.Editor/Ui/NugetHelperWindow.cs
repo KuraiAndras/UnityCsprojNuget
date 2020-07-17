@@ -9,12 +9,18 @@ namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
+        private NugetOptions _options = new NugetOptions();
+
         private ProjectDescriptor[] _projects = new ProjectDescriptor[0];
 
         [MenuItem("Unity Csproj / Open Window")]
         public static void OpenWindow() => GetWindow<NugetHelperWindow>();
 
-        private void Awake() => DiscoverProjects();
+        private void Awake()
+        {
+            DiscoverProjects();
+            _options = NugetOptionsFactory.CreateDefault().LoadFromFile();
+        }
 
         private void OnGUI()
         {
@@ -39,15 +45,24 @@ namespace UnityCsprojNuget.Editor.Ui
                 GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
             }
 
-            if (_projects.Length <= 1) return;
-
-            GuiLayoutHelper.LabelCentered("All projects");
-
-            GuiLayoutHelper.InHorizontal(() =>
+            if (_projects.Length > 1)
             {
-                if (GUILayout.Button("Generate DLLs")) BuildAll();
-                if (GUILayout.Button("Initialize")) InitializeAll();
-            });
+                GuiLayoutHelper.LabelCentered("All projects");
+
+                GuiLayoutHelper.InHorizontal(() =>
+                {
+                    if (GUILayout.Button("Generate DLLs")) BuildAll();
+                    if (GUILayout.Button("Initialize")) InitializeAll();
+                });
+
+                GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
+            }
+
+            GuiLayoutHelper.LabelCentered("Settings");
+
+            _options.AddProjectsToSolution = GUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
+
+            if (GUILayout.Button("Save settings")) NugetOptionsFactory.CreateDefault().Save(_options);
         }
 
         private void BuildAll() => _projects.ForEach(BuildProject);
