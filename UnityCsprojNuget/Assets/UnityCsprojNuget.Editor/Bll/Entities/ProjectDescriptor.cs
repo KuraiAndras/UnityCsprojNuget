@@ -1,4 +1,6 @@
-﻿namespace UnityCsprojNuget.Editor.Bll.Entities
+﻿using System.IO;
+
+namespace UnityCsprojNuget.Editor.Bll.Entities
 {
     public sealed class ProjectDescriptor
     {
@@ -10,6 +12,8 @@
 
         public string AsmdefPath { get; set; }
         public bool OverWrite { get; set; }
+
+        public string ProjectName => Path.GetFileNameWithoutExtension(AsmdefPath);
 
         public static ProjectDescriptor Default(string path = null) => new ProjectDescriptor(path ?? string.Empty, false);
         public bool IsDefault() => AsmdefPath == string.Empty;
