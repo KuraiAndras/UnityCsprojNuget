@@ -20,25 +20,34 @@ namespace UnityCsprojNuget.Editor.Ui
         {
             if (GUILayout.Button("Search for asmdef")) DiscoverProjects();
 
-            GuiLayoutHelper.DrawUiLine(Color.black);
+            GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
 
             foreach (var project in _projects)
             {
-                GUILayout.Label(project.AsmdefPath);
+                GuiLayoutHelper.LabelCentered(project.ProjectName);
+
+                GuiLayoutHelper.LabelCentered(project.AsmdefPath);
 
                 project.OverWrite = GUILayout.Toggle(project.OverWrite, "Overwrite files");
 
-                if (GUILayout.Button("Initialize")) InitializeProject(project);
+                GuiLayoutHelper.InHorizontal(() =>
+                {
+                    if (GUILayout.Button("Generate DLLs")) BuildProject(project);
+                    if (GUILayout.Button("Initialize")) InitializeProject(project);
+                });
 
-                if (GUILayout.Button("Build")) BuildProject(project);
-
-                GuiLayoutHelper.DrawUiLine(Color.black);
+                GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
             }
 
             if (_projects.Length <= 1) return;
 
-            if (GUILayout.Button("Initialize All")) InitializeAll();
-            if (GUILayout.Button("Build All")) BuildAll();
+            GuiLayoutHelper.LabelCentered("All projects");
+
+            GuiLayoutHelper.InHorizontal(() =>
+            {
+                if (GUILayout.Button("Generate DLLs")) BuildAll();
+                if (GUILayout.Button("Initialize")) InitializeAll();
+            });
         }
 
         private void BuildAll() => _projects.ForEach(BuildProject);
