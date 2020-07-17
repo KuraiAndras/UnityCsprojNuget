@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using UnityCsprojNuget.Editor.Bll;
-using UnityCsprojNuget.Editor.Bll.Entities;
+using UnityCsprojNuget.Editor.Application;
+using UnityCsprojNuget.Editor.Domain;
 using UnityCsprojNuget.Editor.Extensions;
 using UnityEditor;
 using UnityEngine;

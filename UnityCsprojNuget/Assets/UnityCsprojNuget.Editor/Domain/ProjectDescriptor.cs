@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UnityCsprojNuget.Editor.Bll.Entities
+namespace UnityCsprojNuget.Editor.Domain
 {
     public sealed class ProjectDescriptor
     {
