@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityCsprojNuget.Editor.Bll;
 using UnityCsprojNuget.Editor.Bll.Entities;
+using UnityCsprojNuget.Editor.Extensions;
 using UnityEditor;
 using UnityEngine;
 
@@ -40,21 +41,9 @@ namespace UnityCsprojNuget.Editor.Ui
             if (GUILayout.Button("Build All")) BuildAll();
         }
 
-        private void BuildAll()
-        {
-            foreach (var project in _projects)
-            {
-                BuildProject(project);
-            }
-        }
+        private void BuildAll() => _projects.ForEach(BuildProject);
 
-        private void InitializeAll()
-        {
-            foreach (var project in _projects)
-            {
-                InitializeProject(project);
-            }
-        }
+        private void InitializeAll() => _projects.ForEach(InitializeProject);
 
         private static void InitializeProject(ProjectDescriptor project) => ProjectCreator.CreateProjectCreator().InitializeProject(project);
 

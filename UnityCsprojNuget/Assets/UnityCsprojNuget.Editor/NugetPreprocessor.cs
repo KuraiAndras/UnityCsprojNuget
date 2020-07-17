@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using UnityCsprojNuget.Editor.Bll;
+﻿using UnityCsprojNuget.Editor.Bll;
+using UnityCsprojNuget.Editor.Extensions;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
@@ -11,14 +11,12 @@ namespace UnityCsprojNuget.Editor
 
         public void OnPreprocessBuild(BuildReport report) => BuildAllProjects();
 
-        public static void BuildAllProjects()
-        {
-            var projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
-
-            foreach (var asmdefPath in projects)
-            {
-                ProjectBuilder.CreateProjectBuilder().BuildProject(asmdefPath);
-            }
-        }
+        public static void BuildAllProjects() =>
+            ProjectDiscoverer
+                .CreateProjectDiscoverer()
+                .FindAsmdefPaths()
+                .ForEach(p => ProjectBuilder
+                    .CreateProjectBuilder()
+                    .BuildProject(p));
     }
 }
