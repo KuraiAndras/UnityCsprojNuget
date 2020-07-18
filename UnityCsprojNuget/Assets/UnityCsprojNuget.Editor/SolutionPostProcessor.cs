@@ -15,13 +15,47 @@ namespace UnityCsprojNuget.Editor
 #pragma warning disable IDE0051 // Remove unused private members
         public static string OnGeneratedSlnSolution(string _, string content)
         {
-            var asmdefPaths = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
+            var options = NugetOptionsFactory.CreateDefault().LoadFromFile();
 
-            var sb = new StringBuilder();
+            var projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
+
+            if (!options.AddProjectsToSolution)
+            {
+                var sb = new StringBuilder();
+
+                var projectGuids = new List<Guid>();
+                using (var reader = new StringReader(content))
+                {
+                    string line;
+                    while (!((line = reader.ReadLine()) is null))
+                    {
+                        if (!projects.Any(project => line.Contains(NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath)))) continue;
+
+                        var guidString = line.Substring(line.Length - Guid.Empty.ToString().Length - 2, line.Length - 2);
+
+                        projectGuids.Add(Guid.Parse(guidString));
+
+                        break;
+                    }
+                }
+
+                using (var reader = new StringReader(content))
+                {
+                    string line;
+                    while (!((line = reader.ReadLine()) is null))
+                    {
+                        if (!projectGuids.Any(g => line.Contains(g.ToString()))) sb.AppendLine(line);
+                    }
+                }
+
+                return content;
+            }
 
 #pragma warning disable IDE0063 // Use simple 'using' statement
             using (var reader = new StringReader(content))
             {
+                var sb = new StringBuilder();
+
                 string line;
                 var projectGuids = new List<Guid>();
                 while (!((line = reader.ReadLine()) is null))
@@ -30,7 +64,7 @@ namespace UnityCsprojNuget.Editor
 
                     if (line.Contains("# Visual Studio 15"))
                     {
-                        foreach (var project in asmdefPaths)
+                        foreach (var project in projects)
                         {
                             var csprojPath = NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath);
 
