@@ -15,6 +15,8 @@ namespace UnityCsprojNuget.Editor.Ui
 
         private ProjectDescriptor[] _projects = new ProjectDescriptor[0];
 
+        public static NugetHelperWindow CreateDefault() => GetWindow<NugetHelperWindow>("Project options");
+
         private void Awake()
         {
             DiscoverProjects();
@@ -65,7 +67,7 @@ namespace UnityCsprojNuget.Editor.Ui
 
             GuiLayoutHelper.LabelCentered("Settings");
 
-            _options.AddProjectsToSolution = EditorGUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
+            _options.AddProjectsToSolution = GUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
 
             if (GuiLayoutHelper.Button("Save settings")) SaveSettings();
         }
