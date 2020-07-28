@@ -1,4 +1,4 @@
-using UnityCsprojNuget.Editor.Application;
+﻿using UnityCsprojNuget.Editor.Application;
 using UnityEditor;
 
 namespace UnityCsprojNuget.Editor.Ui
@@ -10,5 +10,8 @@ namespace UnityCsprojNuget.Editor.Ui
 
         [MenuItem("Unity Csproj / Regenerate Project files")]
         public static void RegenerateProjectFiles() => ProjectRegenerator.CreateDefault().RegenerateProject();
+
+        [MenuItem("Unity Csproj / Generate DLLs")]
+        public static void GenerateDlls() => NugetPreprocessor.BuildAllProjects();
     }
 }
