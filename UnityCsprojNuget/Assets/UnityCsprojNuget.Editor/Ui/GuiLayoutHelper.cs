@@ -43,5 +43,15 @@ namespace UnityCsprojNuget.Editor.Ui
             var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = true };
             EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
         }
+
+        public static bool Button(string text, RectOffset margin = null, RectOffset padding = null)
+        {
+            var style = new GUIStyle(GUI.skin.button);
+
+            if (!(margin is null)) style.margin = margin;
+            if (!(padding is null)) style.padding = padding;
+
+            return GUILayout.Button(text, style);
+        }
     }
 }

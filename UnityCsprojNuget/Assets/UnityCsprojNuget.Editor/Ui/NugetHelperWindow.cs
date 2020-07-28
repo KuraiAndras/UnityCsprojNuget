@@ -23,7 +23,7 @@ namespace UnityCsprojNuget.Editor.Ui
 
         private void OnGUI()
         {
-            if (GUILayout.Button("Search for asmdef projects")) DiscoverProjects();
+            if (GuiLayoutHelper.Button("Search for asmdef projects", margin: new RectOffset(0, 0, 10, 0))) DiscoverProjects();
 
             GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
 
@@ -36,10 +36,10 @@ namespace UnityCsprojNuget.Editor.Ui
                 GuiLayoutHelper.InHorizontal(() =>
                 {
                     project.OverWrite = GUILayout.Toggle(project.OverWrite, "Overwrite files");
-                    if (GUILayout.Button("Initialize")) InitializeProject(project);
+                    if (GuiLayoutHelper.Button("Initialize")) InitializeProject(project);
                 });
 
-                if (GUILayout.Button("Generate DLLs")) BuildProject(project);
+                if (GuiLayoutHelper.Button("Generate DLLs")) BuildProject(project);
 
                 GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
             }
@@ -50,8 +50,8 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 GuiLayoutHelper.InHorizontal(() =>
                 {
-                    if (GUILayout.Button("Generate DLLs")) BuildAll();
-                    if (GUILayout.Button("Initialize")) InitializeAll();
+                    if (GuiLayoutHelper.Button("Generate DLLs")) BuildAll();
+                    if (GuiLayoutHelper.Button("Initialize")) InitializeAll();
                 });
 
                 GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
@@ -59,15 +59,15 @@ namespace UnityCsprojNuget.Editor.Ui
 
             GuiLayoutHelper.LabelCentered("Utility");
 
-            if (GUILayout.Button("Regenerate project files")) RegenerateProjectFiles();
+            if (GuiLayoutHelper.Button("Regenerate project files")) RegenerateProjectFiles();
 
             GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
 
             GuiLayoutHelper.LabelCentered("Settings");
 
-            _options.AddProjectsToSolution = GUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
+            _options.AddProjectsToSolution = EditorGUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
 
-            if (GUILayout.Button("Save settings")) SaveSettings();
+            if (GuiLayoutHelper.Button("Save settings")) SaveSettings();
         }
 
         private void BuildAll() => _projects.ForEach(BuildProject);
