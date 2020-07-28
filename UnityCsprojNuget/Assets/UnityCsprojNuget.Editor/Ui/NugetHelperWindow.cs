@@ -9,8 +9,6 @@ namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
-        private readonly Color _lineColor = Color.black;
-
         private NugetOptions _options = new NugetOptions();
 
         private ProjectDescriptor[] _projects = new ProjectDescriptor[0];
@@ -25,15 +23,19 @@ namespace UnityCsprojNuget.Editor.Ui
 
         private void OnGUI()
         {
+            var lineColor = EditorGUIUtility.isProSkin
+                ? Color.white
+                : Color.black;
+
             if (GuiLayoutHelper.Button("Search for asmdef projects", margin: new RectOffset(0, 0, 10, 0))) DiscoverProjects();
 
-            GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
+            GuiLayoutHelper.DrawUiHorizontalLine(lineColor);
 
             foreach (var project in _projects)
             {
-                GuiLayoutHelper.LabelCentered(project.ProjectName);
+                GuiLayoutHelper.Label(project.ProjectName);
 
-                GuiLayoutHelper.LabelCentered(project.AsmdefPath);
+                GuiLayoutHelper.Label(project.AsmdefPath);
 
                 GuiLayoutHelper.InHorizontal(() =>
                 {
@@ -43,12 +45,12 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 if (GuiLayoutHelper.Button("Generate DLLs")) BuildProject(project);
 
-                GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
+                GuiLayoutHelper.DrawUiHorizontalLine(lineColor);
             }
 
             if (_projects.Length > 1)
             {
-                GuiLayoutHelper.LabelCentered("All projects");
+                GuiLayoutHelper.Label("All projects");
 
                 GuiLayoutHelper.InHorizontal(() =>
                 {
@@ -56,16 +58,16 @@ namespace UnityCsprojNuget.Editor.Ui
                     if (GuiLayoutHelper.Button("Initialize")) InitializeAll();
                 });
 
-                GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
+                GuiLayoutHelper.DrawUiHorizontalLine(lineColor);
             }
 
-            GuiLayoutHelper.LabelCentered("Utility");
+            GuiLayoutHelper.Label("Utility");
 
             if (GuiLayoutHelper.Button("Regenerate project files")) RegenerateProjectFiles();
 
-            GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
+            GuiLayoutHelper.DrawUiHorizontalLine(lineColor);
 
-            GuiLayoutHelper.LabelCentered("Settings");
+            GuiLayoutHelper.Label("Settings");
 
             _options.AddProjectsToSolution = GUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
 

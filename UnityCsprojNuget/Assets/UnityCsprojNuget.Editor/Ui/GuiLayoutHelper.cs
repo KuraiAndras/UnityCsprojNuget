@@ -26,21 +26,9 @@ namespace UnityCsprojNuget.Editor.Ui
             GUILayout.EndHorizontal();
         }
 
-        public static void LabelCentered(string text)
+        public static void Label(string text, TextAnchor alignment = TextAnchor.MiddleCenter)
         {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, wordWrap = true };
-            EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
-        }
-
-        public static void LabelRight(string text)
-        {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, wordWrap = true };
-            EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
-        }
-
-        public static void LabelLeft(string text)
-        {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = true };
+            var style = new GUIStyle(GUI.skin.label) { alignment = alignment, wordWrap = true };
             EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
         }
 
