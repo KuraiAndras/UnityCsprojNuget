@@ -1,4 +1,4 @@
-﻿namespace UnityCsprojNuget.Editor.Bll
+﻿namespace UnityCsprojNuget.Editor.Application
 {
     public static class FileResources
     {

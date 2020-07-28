@@ -33,15 +33,23 @@ The main idea is [this](https://kuraiandras.github.io/unity/2020/04/28/modern-un
 2. Install the project through either [openupm](https://openupm.com/packages/com.unitycsprojnuget/) (this is recommended) or with the provided [unitypackage](https://github.com/KuraiAndras/UnityCsprojNuget/releases/latest). 
 3. Launch the csproj window as shown on the above image
 4. This window will enumerate through all of your asmdef files, and will let you create a csproj file for it's dependencies, and also place a folder named NugetDlls with a gitignore for the dlls and their meta files. The csproj is placed in a folder called .nuget which will be ignored by Unity. If you do not want to use the provided gitignore files, then delete them after initialization.
-5. Regenerate the Unity project files through Edit/Preferences/External Tools
+5. Regenerate the Unity project files through either the "Regenerate project file" button, or in the Unity options: "Edit/Preferences/External Tools".
 6. Launch Visual Studio and add nuget packages to the generated project file, or use the dotnet cli tools
 7. Build the generated project from either Visual Studio, the dotnet cli or through the provided Editor UI
-8. (Optional) If you are using Visual Studio to debug then unload the generated projects from Visual Studio, so they do not interfere when attaching to Unity.
+8. (Optional) This is not needed if your are using Unity 2020.1 and have the latest Visual Studio package. If you are using Visual Studio to debug then unload the generated projects from Visual Studio, so they do not interfere when attaching to Unity.
 9. You are done!
+
+## Settings
+
+Setting | Description
+ --- | ---
+ Add projects to solution | Whether to add the initialized projects to the unity-generated solution file, when the project is regenerated
+
+Settings are persisted in the root unity folder in the NugetOptions.xml file. To save and apply the settings press the "Save settings" button.
 
 ## Additional stuff
 
-- When Unity generates the solution files your nuget projects will be added to the solution. If you want to debug your Unity project you may need to unload them from the solution by right clicking on them in Visual Studio.
+- When Unity generates the solution files your nuget projects will be added to the solution. If you want to debug your Unity project you may need to unload them from the solution by right clicking on them in Visual Studio. (Only when using Unity older than 2020.1)
 - If you want to use this in a CI-CD environment then you don't need to manually run dotnet build for the nuget projects. The project comes with an IPreprocessBuildWithReport which will do the same thing as the Build All button.
 - Running the build command will replicate the output of the dotnet cli to the Unity Debug console.
 

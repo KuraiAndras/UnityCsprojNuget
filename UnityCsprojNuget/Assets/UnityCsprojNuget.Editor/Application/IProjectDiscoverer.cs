@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using UnityCsprojNuget.Editor.Bll.Entities;
+using UnityCsprojNuget.Editor.Domain;
 
-namespace UnityCsprojNuget.Editor.Bll
+namespace UnityCsprojNuget.Editor.Application
 {
     public interface IProjectDiscoverer
     {
