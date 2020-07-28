@@ -26,22 +26,20 @@ namespace UnityCsprojNuget.Editor.Ui
             GUILayout.EndHorizontal();
         }
 
-        public static void LabelCentered(string text)
+        public static void Label(string text, TextAnchor alignment = TextAnchor.MiddleCenter)
         {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, wordWrap = true };
+            var style = new GUIStyle(GUI.skin.label) { alignment = alignment, wordWrap = true };
             EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
         }
 
-        public static void LabelRight(string text)
+        public static bool Button(string text, RectOffset margin = null, RectOffset padding = null)
         {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, wordWrap = true };
-            EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
-        }
+            var style = new GUIStyle(GUI.skin.button);
 
-        public static void LabelLeft(string text)
-        {
-            var style = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleLeft, wordWrap = true };
-            EditorGUILayout.LabelField(text, style, GUILayout.ExpandWidth(true));
+            if (!(margin is null)) style.margin = margin;
+            if (!(padding is null)) style.padding = padding;
+
+            return GUILayout.Button(text, style);
         }
     }
 }

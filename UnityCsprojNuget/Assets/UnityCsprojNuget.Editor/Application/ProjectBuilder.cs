@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using System.IO;
-using UnityCsprojNuget.Editor.Bll.Entities;
+using UnityCsprojNuget.Editor.Domain;
 
-namespace UnityCsprojNuget.Editor.Bll
+namespace UnityCsprojNuget.Editor.Application
 {
     public sealed class ProjectBuilder : IProjectBuilder
     {

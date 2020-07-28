@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace UnityCsprojNuget.Editor.Bll
+namespace UnityCsprojNuget.Editor.Application
 {
     public static class NamesPaths
     {
@@ -9,7 +9,8 @@ namespace UnityCsprojNuget.Editor.Bll
         // ReSharper disable once AssignNullToNotNullAttribute
         public static string CreateCsprojPathFromAsmDefPath(string asmdefPath) =>
             Path.Combine(
-                Path.Combine(new FileInfo(asmdefPath).DirectoryName, BaseFolder),
+                new FileInfo(asmdefPath).DirectoryName,
+                BaseFolder,
                 Path.GetFileNameWithoutExtension(new FileInfo(asmdefPath).FullName) + ".Nuget.csproj");
     }
 }
