@@ -9,12 +9,11 @@ namespace UnityCsprojNuget.Editor.Ui
 {
     public sealed class NugetHelperWindow : EditorWindow
     {
+        private readonly Color _lineColor = Color.black;
+
         private NugetOptions _options = new NugetOptions();
 
         private ProjectDescriptor[] _projects = new ProjectDescriptor[0];
-
-        [MenuItem("Unity Csproj / Open Window")]
-        public static void OpenWindow() => GetWindow<NugetHelperWindow>();
 
         private void Awake()
         {
@@ -24,9 +23,9 @@ namespace UnityCsprojNuget.Editor.Ui
 
         private void OnGUI()
         {
-            if (GUILayout.Button("Search for asmdef")) DiscoverProjects();
+            if (GUILayout.Button("Search for asmdef projects")) DiscoverProjects();
 
-            GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
+            GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
 
             foreach (var project in _projects)
             {
@@ -34,15 +33,15 @@ namespace UnityCsprojNuget.Editor.Ui
 
                 GuiLayoutHelper.LabelCentered(project.AsmdefPath);
 
-                project.OverWrite = GUILayout.Toggle(project.OverWrite, "Overwrite files");
-
                 GuiLayoutHelper.InHorizontal(() =>
                 {
-                    if (GUILayout.Button("Generate DLLs")) BuildProject(project);
+                    project.OverWrite = GUILayout.Toggle(project.OverWrite, "Overwrite files");
                     if (GUILayout.Button("Initialize")) InitializeProject(project);
                 });
 
-                GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
+                if (GUILayout.Button("Generate DLLs")) BuildProject(project);
+
+                GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
             }
 
             if (_projects.Length > 1)
@@ -55,8 +54,14 @@ namespace UnityCsprojNuget.Editor.Ui
                     if (GUILayout.Button("Initialize")) InitializeAll();
                 });
 
-                GuiLayoutHelper.DrawUiHorizontalLine(Color.black);
+                GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
             }
+
+            GuiLayoutHelper.LabelCentered("Utility");
+
+            if (GUILayout.Button("Regenerate project files")) RegenerateProjectFiles();
+
+            GuiLayoutHelper.DrawUiHorizontalLine(_lineColor);
 
             GuiLayoutHelper.LabelCentered("Settings");
 
@@ -80,5 +85,7 @@ namespace UnityCsprojNuget.Editor.Ui
         private static void InitializeProject(ProjectDescriptor project) => ProjectCreator.CreateProjectCreator().InitializeProject(project);
 
         private static void BuildProject(ProjectDescriptor project) => ProjectBuilder.CreateProjectBuilder().BuildProject(project);
+
+        private static void RegenerateProjectFiles() => ProjectRegenerator.CreateDefault().RegenerateProject();
     }
 }

@@ -1,0 +1,14 @@
+﻿using UnityCsprojNuget.Editor.Application;
+using UnityEditor;
+
+namespace UnityCsprojNuget.Editor.Ui
+{
+    public static class ProjectMenuItems
+    {
+        [MenuItem("Unity Csproj / Open Window")]
+        public static void OpenWindow() => EditorWindow.GetWindow<NugetHelperWindow>();
+
+        [MenuItem("Unity Csproj / Regenerate Project files")]
+        public static void RegenerateProjectFiles() => ProjectRegenerator.CreateDefault().RegenerateProject();
+    }
+}
