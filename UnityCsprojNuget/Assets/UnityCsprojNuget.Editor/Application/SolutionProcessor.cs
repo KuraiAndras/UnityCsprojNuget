@@ -20,39 +20,9 @@ namespace UnityCsprojNuget.Editor.Application
 
         public string ProcessSolutionFile(string slnContent)
         {
+            if (!_options.AddProjectsToSolution) return slnContent;
+
             var projects = _projectDiscoverer.FindAsmdefPaths().ToArray();
-
-            if (!_options.AddProjectsToSolution)
-            {
-                var sb = new StringBuilder();
-
-                var projectGuids = new List<Guid>();
-                using (var reader = new StringReader(slnContent))
-                {
-                    string line;
-                    while (!((line = reader.ReadLine()) is null))
-                    {
-                        if (!projects.Any(project => line.Contains(NamesPaths.CreateCsprojPathFromAsmDefPath(project.AsmdefPath)))) continue;
-
-                        var guidString = line.Substring(line.Length - Guid.Empty.ToString().Length - 2, line.Length - 2);
-
-                        projectGuids.Add(Guid.Parse(guidString));
-
-                        break;
-                    }
-                }
-
-                using (var reader = new StringReader(slnContent))
-                {
-                    string line;
-                    while (!((line = reader.ReadLine()) is null))
-                    {
-                        if (!projectGuids.Any(g => line.Contains(g.ToString()))) sb.AppendLine(line);
-                    }
-                }
-
-                return slnContent;
-            }
 
             using (var reader = new StringReader(slnContent))
             {

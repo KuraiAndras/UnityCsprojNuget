@@ -62,17 +62,23 @@ namespace UnityCsprojNuget.Editor.Ui
 
             _options.AddProjectsToSolution = GUILayout.Toggle(_options.AddProjectsToSolution, "Add projects to solution");
 
-            if (GUILayout.Button("Save settings")) NugetOptionsFactory.CreateDefault().Save(_options);
+            if (GUILayout.Button("Save settings")) SaveSettings();
         }
 
         private void BuildAll() => _projects.ForEach(BuildProject);
 
         private void InitializeAll() => _projects.ForEach(InitializeProject);
 
+        private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
+
+        private void SaveSettings()
+        {
+            NugetOptionsFactory.CreateDefault().Save(_options);
+            OptionsApplier.CreateDefault().ApplyOptions(_options);
+        }
+
         private static void InitializeProject(ProjectDescriptor project) => ProjectCreator.CreateProjectCreator().InitializeProject(project);
 
         private static void BuildProject(ProjectDescriptor project) => ProjectBuilder.CreateProjectBuilder().BuildProject(project);
-
-        private void DiscoverProjects() => _projects = ProjectDiscoverer.CreateProjectDiscoverer().FindAsmdefPaths().ToArray();
     }
 }
