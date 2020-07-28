@@ -1,28 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+﻿using NUnit.Framework;
+using UnityCsprojNuget.Editor.Application;
+using UnityCsprojNuget.Editor.Domain;
 
-namespace Tests
+namespace UnityCsprojNuget.Tests
 {
     public class SlnTests
     {
-        // A Test behaves as an ordinary method
-        [Test]
-        public void SlnTestsSimplePasses()
+        [TestCase(SlnStrings.Empty, false, SlnStrings.Empty)]
+        [TestCase(SlnStrings.Empty, true, SlnStrings.Filled)]
+        public void TestSlnModification(string inputSln, bool addToSolution, string expectedSln)
         {
-            // Use the Assert class to test conditions
-        }
+            // Arrange
+            var options = new NugetOptions { AddProjectsToSolution = addToSolution };
+            var processor = SolutionProcessor.CreateDefault(options);
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator SlnTestsWithEnumeratorPasses()
-        {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            // Act
+            var updatedSln = processor.ProcessSolutionFile(inputSln);
+
+            // Assert
+            Assert.AreEqual(SlnStrings.CreateNormalized(expectedSln), SlnStrings.CreateNormalized(updatedSln));
         }
     }
 }
