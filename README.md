@@ -1,4 +1,4 @@
-# UnityCsprojNuget [![openupm](https://img.shields.io/npm/v/com.unitycsprojnuget?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.unitycsprojnuget/)
+# UnityCsprojNuget [![openupm](https://img.shields.io/npm/v/com.kuraiandras.unitycsprojnuget?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.kuraiandras.unitycsprojnuget/)
 
 This project provides nuget support trough sdk-style csproj files in Unity, with a Unity Editor tool.
 
@@ -30,7 +30,7 @@ The main idea is [this](https://kuraiandras.github.io/unity/2020/04/28/modern-un
 ## How do I use it?
 
 1. Install the dotnet core sdk, and make sure it is available in your PATH
-2. Install the project through either [openupm](https://openupm.com/packages/com.unitycsprojnuget/) (this is recommended) or with the provided [unitypackage](https://github.com/KuraiAndras/UnityCsprojNuget/releases/latest). 
+2. Install the project through either [openupm](https://openupm.com/packages/com.kuraiandras.unitycsprojnuget/) (this is recommended) or with the provided [unitypackage](https://github.com/KuraiAndras/UnityCsprojNuget/releases/latest). 
 3. Launch the csproj window as shown on the above image
 4. This window will enumerate through all of your asmdef files, and will let you create a csproj file for it's dependencies, and also place a folder named NugetDlls with a gitignore for the dlls and their meta files. The csproj is placed in a folder called .nuget which will be ignored by Unity. If you do not want to use the provided gitignore files, then delete them after initialization.
 5. Regenerate the Unity project files through either the "Regenerate project file" button, or in the Unity options: "Edit/Preferences/External Tools".
