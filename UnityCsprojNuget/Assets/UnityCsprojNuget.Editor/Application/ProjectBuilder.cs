@@ -35,7 +35,7 @@ namespace UnityCsprojNuget.Editor.Application
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "dotnet",
-                    Arguments = $"build {csprojPath}",
+                    Arguments = $"build \"{csprojPath}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
